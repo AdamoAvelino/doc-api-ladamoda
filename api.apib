@@ -1,0 +1,299 @@
+FORMAT: 1A
+HOST: http://localhost/api/v1
+
+# API La'damoda.
+
+# Group Produtos
+
+## Produto Listagem e Criação [/produto]
+
+### Listar Produtos [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[ProdutoCadastrado])
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
+### Cadastrar Produtos [POST]
++ Request Cadastrar produto
+    + Headers
+
+            Accept: application/json
+            Content-Type: application/json
+    + Attributes (ProdutoNovo)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+## Produto Apresentação, Atualização e Remoção [/produto/{id}]
++ Parameters
+    + id: 1 (number, required) - ID do produto
+
+### Apresentar 1 produto [GET]
+
++ Response 200 (application/json)
+    + Attributes (ProdutoCadastrado)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
+### Atualizar produto [PUT]
+
++ Request atualização do produto
+    + Headers
+
+            Content-type: application/json
+            Accept: application/json
+    + Attributes (ProdutoCadastrado)
+
++ Response 200 (application/json)
+    + Attributes (ProdutoCadastrado)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
+### Deletar Produto [DELETE]
++ Response 204 (application/json)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
+# Group Pedidos de Compra
+
+**O Atributo (delete) no item de pedido de compra, deverá existir somente  se um item de compra for excluído na ação de atualização.**
+
+## EndPoint Pedidos de compras: Criação e listagem [/pedido-compra]
+
+### Criar pedido de compra [POST]
+
++ Request criar pedido de compra
+
+    + Headers
+            
+            Accept: application/json
+            Content-Type: application/json
+    + Attributes (PedidoCompraNovo)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Lista de pedidos de compra [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[PedidoCompraCadastrado])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+## Pedido de compra Apresentação, Atualização e remoção [/pedido-compra/{id}]
++ Parameters
+    + id: 1 (number, required) - Id do pedido de compra
+
+### Apresentação do pedido de compra [GET]
++ Response 200 (application/json)
+    + Attributes (PedidoCompraCadastrado)
+    
++ Response 404 (application)
+    + Attributes (Error)
+
+### Atualização do Pedido de Compra [PUT]
++ Request dados do pedido a serem atualizados
+    
+    + Headers
+
+            Content-type: application/json
+            Accept: application/json
+    + Attributes (PedidoCompraCadastrado)
+    
++ Response 200 (application/json)
+    + Attributes (PedidoCompraCadastrado)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Remoção do pedido de compra [DELETE]
++ Response 204 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+# Group Tamanho
+
+## EndPoint Tamanhos para Produto [/tamanho]
+
+### Criar tamanho para produto [POST]
+
++ Request criar tamanho para produto
+
+    + Headers
+
+            Accept: application/json
+            Content-Type: application/json
+    + Attributes (object)
+        + name: M (string)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Listar Tamanho [GET]
++ Response 200 (application/json)
+    + Attributes (array[Tamanho])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+# Group Variações
+
+## EndPoint variações de produtos [/variacoes]
+
+### Listar Variacoes [GET]
++ Response 200 (application/json)
+    + Attributes (array[Variacao])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Cadastrar Variação [POST]
+
++ Request criar variação para produtos
+
+    + Headers
+
+            Content-type: application/json
+            Accept: application/json
+    + Attributes (object)
+        + name: Azul (string)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+
+
+# Group Modalidade
+
+## EndPoint Modalidade [/modalidade]
+
+### Criar Modalidade [POST]
+
++ Request criar modalidade para produtos
+    + Header
+
+            Accept: (application/json)
+            Content-Type: (application/json)
+    + Attributes (object)
+        + name: Revenda (string)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Listar Modalidadde [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[Modalidade])
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
+# Group Categoria de produtos
+
+## EndPoint para categorias de produtos [/categoria]
+
+### Listar categoria de produtos [GET]
++ Response 200 (application/json)
+    + Attributes (array[Categoria])
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
+### Cadastrar categoria de produtos [POST]
++ Request Cadastrar categoria de produtos
+    + Headers
+
+            Accept: application/json
+            Content-type: application/json
+    + Attributes (object)
+        + name: Camisas Femininas (string)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+# Data Structures
+
+## ProdutoNovo 
++ codigo: 123564 (string)
++ name: Blusa de alsa (string)
++ cost_value: 25.60 (number)
++ category_id: 1 (number)
++ modality_id: 1 (number)
++ sale_value: 57.00 (number) 
++ start_date: `2021-09-24` (string) - Data do Produto
++ ncm: 123245 (number)
+
+## ProdutoCadastrado (ProdutoNovo)
++ id: 1 (number)
+
+## PedidoCompraItemCadastrado (PedidoCompraItemNovo)
++ delete: 1 (number) - Opcinal, em caso de atualização de pedido e um produto fou exluído
++ product_id: 1 (number)
+
+## PedidoCompraItemNovo
++ product_size_id: 1 (number)
++ product_custom_id: 2 (number)
+
+
+## PedidoCompraCadastrado (object)
++ id: 1 (number)
++ vendor_id: 1 (number)
++ items_purchase (array[PedidoCompraItemCadastrado])
++ purchase_number: PR0000007 (string)
++ date: `2021-09-17` (string)
+
+## PedidoCompraNovo (object)
++ vendor_id: 1 (number)
++ items_purchase (array[PedidoCompraItemNovo])
++ purchase_number: PR0000007 (string)
++ date: `2021-09-17` (string)
+
+## Tamanho (object)
++ id: 1 (number)
++ name: M (string)
+
+## Variacao (object)
++ id: 1 (number)
++ name: Azul (string)
+
+## Modalidade (object)
++ id: 1 (number)
++ name: Revenda (string)
+
+## Categoria (object)
++ id: 1 (number)
++ name: Camisas Femininas (string)
+
+## Created (object)
++ id: 1 (number) - Id do Pedido de Compra
+
+## Error (object)
++ code: 400 (number)
++ message: Mensagem do erro
++ description: descrição do status
+
