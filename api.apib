@@ -124,6 +124,22 @@ HOST: http://localhost/api/v1
 + Response 400 (application/json)
     + Attributes (Error)
 
+### Filtros para pedidos de compras [/pedido-compra/filtro]
+
+## Request Dados opcionais para listar pedidos de compra [POST]
++ Request 
+    + Headers
+
+            Accept: application/json
+            Content-Type: application/json
+    + Attributes (FiltroPedidoCompra)
+
++ Response 200 (application/json)
+    + Attributes (array[ProdutoCadastrado])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
 # Group Tamanho
 
 ## EndPoint Tamanhos para Produto [/tamanho]
@@ -136,8 +152,7 @@ HOST: http://localhost/api/v1
 
             Accept: application/json
             Content-Type: application/json
-    + Attributes (object)
-        + name: M (string)
+    + Attributes (TamanhoNovo)
 
 + Response 201 (application/json)
     + Attributes (Created)
@@ -147,7 +162,7 @@ HOST: http://localhost/api/v1
 
 ### Listar Tamanho [GET]
 + Response 200 (application/json)
-    + Attributes (array[Tamanho])
+    + Attributes (array[TamanhoCadastrado])
 
 + Response 400 (application/json)
     + Attributes (Error)
@@ -158,7 +173,7 @@ HOST: http://localhost/api/v1
 
 ### Listar Variacoes [GET]
 + Response 200 (application/json)
-    + Attributes (array[Variacao])
+    + Attributes (array[VariacaoCadastrada])
 
 + Response 400 (application/json)
     + Attributes (Error)
@@ -171,8 +186,7 @@ HOST: http://localhost/api/v1
 
             Content-type: application/json
             Accept: application/json
-    + Attributes (object)
-        + name: Azul (string)
+    + Attributes (VariacaoNova)
 
 + Response 201 (application/json)
     + Attributes (Created)
@@ -193,8 +207,7 @@ HOST: http://localhost/api/v1
 
             Accept: (application/json)
             Content-Type: (application/json)
-    + Attributes (object)
-        + name: Revenda (string)
+    + Attributes (ModalidadeNova)
 
 + Response 201 (application/json)
     + Attributes (Created)
@@ -205,7 +218,7 @@ HOST: http://localhost/api/v1
 ### Listar Modalidadde [GET]
 
 + Response 200 (application/json)
-    + Attributes (array[Modalidade])
+    + Attributes (array[ModalidadeCadastrada])
 
 + Response 404 (application/json)
     + Attributes (Error)
@@ -216,7 +229,7 @@ HOST: http://localhost/api/v1
 
 ### Listar categoria de produtos [GET]
 + Response 200 (application/json)
-    + Attributes (array[Categoria])
+    + Attributes (array[CategoriaCadastrada])
 
 + Response 404 (application/json)
     + Attributes (Error)
@@ -227,13 +240,71 @@ HOST: http://localhost/api/v1
 
             Accept: application/json
             Content-type: application/json
-    + Attributes (object)
-        + name: Camisas Femininas (string)
+    + Attributes (CategoriaNova)
 
 + Response 201 (application/json)
     + Attributes (Created)
 
 + Response 400 (application/json)
+    + Attributes (Error)
+
+# Group Fornecedor
+
+## EnPoint para apresentar e gravar fornecedor [/fornecedor]
+
+### Listar fornecedor [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[FornecedorCadastrado])
+
++ Response 404 (application/json)
+    + Attributes(Error)
+
+### Cadastrar fornecedor [POST]
++ Request Cadastrar fornecedores
+
+    + Headers
+
+            Accept: application/json
+            Content-type: application/json
+    + Attributes (FornecedorNovo)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+## Endpoints para apresentação, atulaização e remoção de fornecedor [/fornecedor/{id}]
+
++ Parameters
+    + id: 1 (number, required) - id do fornecedor
+### Apresenta fornecedor [GET]
+
++ Response 200 (application/json)
+    + Attributes (FornecedorCadastrado)
++ Response 404 (application/json)
+    + Attributes (Error)
+
+### Atualizar fornecedor [PUT]
++ Request atualizar fornecedor
+    + Headers
+
+            Content-Type: application/json
+            Accept: application/json
+
+    + Attributes (FornecedorCadastrado)
+
++ Response 200 (application/json)
+    + Attributes (FornecedorCadastrado)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Remover fornecedor [DELETE]
++ Response 204 (application/json)
+
++ Response 404 (application/json)
     + Attributes (Error)
 
 # Data Structures
@@ -262,32 +333,54 @@ HOST: http://localhost/api/v1
 
 ## PedidoCompraCadastrado (object)
 + id: 1 (number)
-+ vendor_id: 1 (number)
++ vendor (FornecedorCadastrado)
 + items_purchase (array[PedidoCompraItemCadastrado])
 + purchase_number: PR0000007 (string)
 + date: `2021-09-17` (string)
++ purchase_value: 467.99 (number) 
 
 ## PedidoCompraNovo (object)
-+ vendor_id: 1 (number)
++ vendor (FornecedorCadastrado)
 + items_purchase (array[PedidoCompraItemNovo])
 + purchase_number: PR0000007 (string)
 + date: `2021-09-17` (string)
 
-## Tamanho (object)
-+ id: 1 (number)
-+ name: M (string)
+## FiltroPedidoCompra (object)
++ purchase_number: PR0000007 (string)
++ date_start: `2021-05-01` (string)
++ date_end: `2021-07-01` (string)
++ category: 1 (number)
 
-## Variacao (object)
+## FornecedorNovo (object)
++ name: Loja do Brás (string)
++ email: loja@bras.com.br (string)
++ telephone: 11989765412 (number)
++ cnpj: 042598880001 (number)
+
+## FornecedorCadastrado (FornecedorNovo)
 + id: 1 (number)
+
+## TamanhoNovo (object)
++ name: M (string)
+## TamanhoCadastrado (TamanhoNovo)
++ id: 1 (number)
+
+## VariacaoNova (object)
 + name: Azul (string)
 
-## Modalidade (object)
+## VariacaoCadastrada (VariacaoNova)
 + id: 1 (number)
+
+## ModalidadeNova (object)
 + name: Revenda (string)
 
-## Categoria (object)
+## ModalidadeCadastrada (ModalidadeNova)
 + id: 1 (number)
+
+## CategoriaNova (object)
 + name: Camisas Femininas (string)
+## CategoriaCadastrada (CategoriaNova)
++ id: 1 (number)
 
 ## Created (object)
 + id: 1 (number) - Id do Pedido de Compra
