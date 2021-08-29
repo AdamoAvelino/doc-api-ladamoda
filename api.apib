@@ -173,7 +173,7 @@ HOST: http://localhost/api/v1
 
 ### Listar Variacoes [GET]
 + Response 200 (application/json)
-    + Attributes (array[VariacaoCadastrada])
+    + Attributes (array[CorCadastrada])
 
 + Response 400 (application/json)
     + Attributes (Error)
@@ -186,7 +186,7 @@ HOST: http://localhost/api/v1
 
             Content-type: application/json
             Accept: application/json
-    + Attributes (VariacaoNova)
+    + Attributes (CorNova)
 
 + Response 201 (application/json)
     + Attributes (Created)
@@ -307,14 +307,45 @@ HOST: http://localhost/api/v1
 + Response 404 (application/json)
     + Attributes (Error)
 
+# Group Grade
+
+## Endpoint de lista de cadastro de grade [/grade]
+
+### Listar grade de produtos [GET]
++ Response 200 (application/json)
+    + Attributes (array[GradeCadastrada])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Cadastro de grade [POST]
++ Request 
+
+    + Headers
+
+            Accept: application/json
+            Content-Type: application/json
+    + Attributes (GradeNova)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/jsosn)
+    + Attributes (Error)
+
+
 # Data Structures
 
 ## ProdutoNovo 
-+ codigo: 123564 (string)
++ code: 123564 (string)
++ code_sku: LA123564 (string)
 + name: Blusa de alsa (string)
++ composition: 84% POLIAMIDA 16% ELASTANO FORRO 100% ALGODÃO (string)
 + cost_value: 25.60 (number)
-+ category_id: 1 (number)
-+ modality_id: 1 (number)
++ category (CategoriaCadastrada)
++ modality (ModalidadeCadastrada)
++ vendor (FornecedorCadastrado)
++ grade (array[GradeCadastrada])
 + sale_value: 57.00 (number) 
 + start_date: `2021-09-24` (string) - Data do Produto
 + ncm: 123245 (number)
@@ -322,13 +353,22 @@ HOST: http://localhost/api/v1
 ## ProdutoCadastrado (ProdutoNovo)
 + id: 1 (number)
 
+## GradeNova
++ size (TamanhoCadastrado)
++ print (EstampaCadastrada)
++ color (CorCadastrada)
+
+## GradeCadastrada (GradeNova)
++ id: 1 (number)
+
 ## PedidoCompraItemCadastrado (PedidoCompraItemNovo)
 + delete: 1 (number) - Opcinal, em caso de atualização de pedido e um produto fou exluído
-+ product_id: 1 (number)
++ order_purchase_id
 
 ## PedidoCompraItemNovo
-+ product_size_id: 1 (number)
-+ product_custom_id: 2 (number)
++ quantity: 3 (number)
++ product (ProdutoCadastrado)
++ grade (GradeCadastrada)
 
 
 ## PedidoCompraCadastrado (object)
@@ -365,10 +405,16 @@ HOST: http://localhost/api/v1
 ## TamanhoCadastrado (TamanhoNovo)
 + id: 1 (number)
 
-## VariacaoNova (object)
+## CorNova (object)
 + name: Azul (string)
 
-## VariacaoCadastrada (VariacaoNova)
+## CorCadastrada (CorNova)
++ id: 1 (number)
+
+## EstampaNova (object)
++ name: Lisa (string)
+
+## EstampaCadastrada (EstampaNova)
 + id: 1 (number)
 
 ## ModalidadeNova (object)
