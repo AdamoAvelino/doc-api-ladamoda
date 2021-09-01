@@ -262,11 +262,10 @@ HOST: http://localhost/api/v1
 
 ### Cadastrar fornecedor [POST]
 + Request Cadastrar fornecedores
-
     + Headers
 
             Accept: application/json
-            Content-type: application/json
+            Content-Type: application/json
     + Attributes (FornecedorNovo)
 
 + Response 201 (application/json)
@@ -362,13 +361,20 @@ HOST: http://localhost/api/v1
 + id: 1 (number)
 
 ## PedidoCompraItemCadastrado (PedidoCompraItemNovo)
-+ delete: 1 (number) - Opcinal, em caso de atualização de pedido e um produto fou exluído
-+ order_purchase_id
++ delete: 1 (number) - Opcional, em caso de atualização de pedido e um produto fou exluído
++ order_purchase_id: 1 (number)
 
 ## PedidoCompraItemNovo
 + quantity: 3 (number)
 + product (ProdutoCadastrado)
 + grade (GradeCadastrada)
+
+## ProdutoPurchase
++ id: 1 (number)
++ code: 123454 (number)
++ name: Blusa de alsa (string)
++ cost_value: 25.60
++ modality (ModalidadeCadastrada)
 
 
 ## PedidoCompraCadastrado (object)
