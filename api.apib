@@ -62,6 +62,20 @@ HOST: http://localhost/api/v1
 + Response 404 (application/json)
     + Attributes (Error)
 
+## Busca de produto por parametros de código/sku/descricao [/produto/{parameter}/{value}]
++ Parameters
+    + parameter: code (string, required) - Atributo a ser pesquisado.
+    + value: 123564a (string, required) - Valor para filtro do produto.
+### Seach Produto [GET]
+
++ Response 200 (application/json)
+    + Attributes (ProdutoCadastrado)
+
++ Response 404 (application/json)
+    + Attributes (Error)
+
+
+
 # Group Pedidos de Compra
 
 **O Atributo (delete) no item de pedido de compra, deverá existir somente  se um item de compra for excluído na ação de atualização.**
@@ -140,63 +154,7 @@ HOST: http://localhost/api/v1
 + Response 400 (application/json)
     + Attributes (Error)
 
-# Group Tamanho
-
-## EndPoint Tamanhos para Produto [/tamanho]
-
-### Criar tamanho para produto [POST]
-
-+ Request criar tamanho para produto
-
-    + Headers
-
-            Accept: application/json
-            Content-Type: application/json
-    + Attributes (TamanhoNovo)
-
-+ Response 201 (application/json)
-    + Attributes (Created)
-
-+ Response 400 (application/json)
-    + Attributes (Error)
-
-### Listar Tamanho [GET]
-+ Response 200 (application/json)
-    + Attributes (array[TamanhoCadastrado])
-
-+ Response 400 (application/json)
-    + Attributes (Error)
-
-# Group Variações
-
-## EndPoint variações de produtos [/variacoes]
-
-### Listar Variacoes [GET]
-+ Response 200 (application/json)
-    + Attributes (array[CorCadastrada])
-
-+ Response 400 (application/json)
-    + Attributes (Error)
-
-### Cadastrar Variação [POST]
-
-+ Request criar variação para produtos
-
-    + Headers
-
-            Content-type: application/json
-            Accept: application/json
-    + Attributes (CorNova)
-
-+ Response 201 (application/json)
-    + Attributes (Created)
-
-+ Response 400 (application/json)
-    + Attributes (Error)
-
-
-
-# Group Modalidade
+# Group Modalidade de Produto
 
 ## EndPoint Modalidade [/modalidade]
 
@@ -306,6 +264,86 @@ HOST: http://localhost/api/v1
 + Response 404 (application/json)
     + Attributes (Error)
 
+# Group Tamanhos
+
+## EndPoint Tamanhos para Produto [/tamanho]
+
+### Criar tamanho para produto [POST]
+
++ Request criar tamanho para produto
+
+    + Headers
+
+            Accept: application/json
+            Content-Type: application/json
+    + Attributes (TamanhoNovo)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Listar Tamanho [GET]
++ Response 200 (application/json)
+    + Attributes (array[TamanhoCadastrado])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+# Group Cores
+
+## EndPoint Cores de produtos [/cor]
+
+### Listar Cores [GET]
++ Response 200 (application/json)
+    + Attributes (array[CorCadastrada])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Cadastrar Cor [POST]
+
++ Request criar cores para produtos
+
+    + Headers
+
+            Content-type: application/json
+            Accept: application/json
+    + Attributes (CorNova)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+# Group Estampas
+
+## EndPoint Estampas de produtos [/estampa]
+
+### Listar estampas [GET]
++ Response 200 (application/json)
+    + Attributes (array[EstampaCadastrada])
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Cadastrar Estampa [POST]
+
++ Request criar estampa para produtos
+
+    + Headers
+
+            Content-type: application/json
+            Accept: application/json
+    + Attributes (EstampaNova)
+
++ Response 201 (application/json)
+    + Attributes (Created)
+
++ Response 400 (application/json)
+    + Attributes (Error)
 # Group Grade
 
 ## Endpoint de lista de cadastro de grade [/grade]
