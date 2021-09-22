@@ -46,7 +46,7 @@ HOST: http://localhost/api/v1
 + Request atualização do produto
     + Headers
 
-            Content-type: application/json
+            Content-Type: application/json
             Accept: application/json
     + Attributes (ProdutoCadastrado)
 
@@ -122,9 +122,9 @@ HOST: http://localhost/api/v1
     
     + Headers
 
-            Content-type: application/json
+            Content-Type: application/json
             Accept: application/json
-    + Attributes (PedidoCompraCadastrado)
+    + Attributes (PedidoCompraAtualizar)
     
 + Response 200 (application/json)
     + Attributes (PedidoCompraCadastrado)
@@ -163,8 +163,8 @@ HOST: http://localhost/api/v1
 + Request criar modalidade para produtos
     + Header
 
-            Accept: (application/json)
-            Content-Type: (application/json)
+            Accept: application/json
+            Content-Type: application/json
     + Attributes (ModalidadeNova)
 
 + Response 201 (application/json)
@@ -197,7 +197,7 @@ HOST: http://localhost/api/v1
     + Headers
 
             Accept: application/json
-            Content-type: application/json
+            Content-Type: application/json
     + Attributes (CategoriaNova)
 
 + Response 201 (application/json)
@@ -308,7 +308,7 @@ HOST: http://localhost/api/v1
 
     + Headers
 
-            Content-type: application/json
+            Content-Type: application/json
             Accept: application/json
     + Attributes (CorNova)
 
@@ -335,7 +335,7 @@ HOST: http://localhost/api/v1
 
     + Headers
 
-            Content-type: application/json
+            Content-Type: application/json
             Accept: application/json
     + Attributes (EstampaNova)
 
@@ -364,7 +364,7 @@ HOST: http://localhost/api/v1
             Content-Type: application/json
     + Attributes (GradeNova)
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
     + Attributes (Created)
 
 + Response 400 (application/jsosn)
@@ -374,9 +374,24 @@ HOST: http://localhost/api/v1
 # Data Structures
 
 ## ProdutoNovo 
-+ code: 123564 (string)
-+ code_sku: LA123564 (string)
-+ name: Blusa de alsa (string)
++ code: 987654 (string)
++ code_sku: LA987654 (string)
++ name: Blusa de manga (string)
++ composition: 73% POLIAMIDA 25% ELASTANO FORRO 100% ALGODÃO (string)
++ cost_value: 35.63 (string)
++ category: 2 (number)
++ modality: 2 (number)
++ vendor: 2 (number)
++ sale_value: 77.11 (string) 
++ profit_porcentage: 30 (string) 
++ start_date: `2021-08-24` (string) - Data do Produto
++ ncm: 456178 (string)
+
+## ProdutoCadastrado (object)
++ id: 2 (number)
++ code: 987654 (string)
++ code_sku: LA987654 (string)
++ name: Blusa de alça (string)
 + composition: 84% POLIAMIDA 16% ELASTANO FORRO 100% ALGODÃO (string)
 + cost_value: 25.60 (number)
 + category (CategoriaCadastrada)
@@ -388,25 +403,16 @@ HOST: http://localhost/api/v1
 + start_date: `2021-09-24` (string) - Data do Produto
 + ncm: 123245 (number)
 
-## ProdutoCadastrado (ProdutoNovo)
-+ id: 1 (number)
-
-## GradeNova
-+ size (TamanhoCadastrado)
-+ print (EstampaCadastrada)
-+ color (CorCadastrada)
-
-## GradeCadastrada (GradeNova)
-+ id: 1 (number)
-
-## PedidoCompraItemCadastrado (PedidoCompraItemNovo)
-+ delete: 1 (number) - Opcional, em caso de atualização de pedido e um produto fou exluído
+## PedidoCompraItemCadastrado (object)
++ quantity: 3
++ product (ProdutoCadastrado)
++ grade (GradeCadastrada)
 + order_purchase_id: 1 (number)
 
 ## PedidoCompraItemNovo
 + quantity: 3 (number)
-+ product (ProdutoCadastrado)
-+ grade (GradeCadastrada)
++ product: 1 (number)
++ grade: 1 (number)
 
 ## ProdutoPurchase
 + id: 1 (number)
@@ -415,17 +421,24 @@ HOST: http://localhost/api/v1
 + cost_value: 25.60
 + modality (ModalidadeCadastrada)
 
-
-## PedidoCompraCadastrado (object)
+## PedidoCompraCadastrado (object) - Estrutura de dados listagem de pedidos de compras
 + id: 1 (number)
 + vendor (FornecedorCadastrado)
 + items_purchase (array[PedidoCompraItemCadastrado])
 + purchase_number: PR0000007 (string)
 + date: `2021-09-17` (string)
-+ purchase_value: 467.99 (number) 
++ purchase_value: 467.99 (number)
 
-## PedidoCompraNovo (object)
-+ vendor (FornecedorCadastrado)
+
+## PedidoCompraAtualizar (object) - Estrutura de dados atualizar de pedidos de compras
++ id: 1 (number)
++ vendor: 2 (number)
++ items_purchase (array[PedidoCompraItemNovo])
++ purchase_number: PR0000007 (string)
++ date: `2021-09-17` (string)
++ purchase_value: 467.99 (number) 
+## PedidoCompraNovo (object) - Estrutura de dados para cadastro de peidos de compras
++ vendor: 2 (number)
 + items_purchase (array[PedidoCompraItemNovo])
 + purchase_number: PR0000007 (string)
 + date: `2021-09-17` (string)
@@ -439,28 +452,13 @@ HOST: http://localhost/api/v1
 ## FornecedorNovo (object)
 + name: Loja do Brás (string)
 + email: loja@bras.com.br (string)
-+ telephone: 11989765412 (number)
-+ cnpj: 042598880001 (number)
++ telephone: 11989765412 (string)
++ cnpj: 042598880001 (string)
 
 ## FornecedorCadastrado (FornecedorNovo)
 + id: 1 (number)
 
-## TamanhoNovo (object)
-+ name: M (string)
-## TamanhoCadastrado (TamanhoNovo)
-+ id: 1 (number)
 
-## CorNova (object)
-+ name: Azul (string)
-
-## CorCadastrada (CorNova)
-+ id: 1 (number)
-
-## EstampaNova (object)
-+ name: Lisa (string)
-
-## EstampaCadastrada (EstampaNova)
-+ id: 1 (number)
 
 ## ModalidadeNova (object)
 + name: Revenda (string)
@@ -472,6 +470,54 @@ HOST: http://localhost/api/v1
 + name: Camisas Femininas (string)
 ## CategoriaCadastrada (CategoriaNova)
 + id: 1 (number)
+
+## TamanhoNovo (object)
++ name: M (string)
+## TamanhoCadastrado (TamanhoNovo)
++ id: 1 (number)
+
+## SizeCreated (object)
++ id: 2 (number)
++ name: G (string)
+
+## CorNova (object)
++ name: Azul (string)
+
+## CorCadastrada (CorNova)
++ id: 1 (number)
+
+## ColorCreated (object)
++ id: 2 (number)
++ name: Laranja (string)
+
+
+## EstampaNova (object)
++ name: Lisa (string)
+
+## EstampaCadastrada (EstampaNova)
++ id: 1 (number)
+
+## PrintCreated
++ id: 2 (number)
++ name: Mandala (string)
+## GradeNova
++ size: 2 (number)
++ print: 2 (number)
++ color: 2 (number)
++ product_id: 1 (number)
+
+## GradeCadastrada (object)
++ id: 1 (number)
++ size (TamanhoCadastrado)
++ print (EstampaCadastrada)
++ color (CorCadastrada)
+
+## GradeCreated (object)
++ id: 2 (number)
++ product_id: 1 (number)
++ size (SizeCreated)
++ print (PrintCreated)
++ color (ColorCreated)
 
 ## Created (object)
 + id: 2 (number) - Id do Pedido de Compra
